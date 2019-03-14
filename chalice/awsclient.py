@@ -150,8 +150,8 @@ class TypedAWSClient(object):
             'Handler': handler,
             'Role': role_arn,
         }  # type: Dict[str, Any]
-        if environment_variables is not None:
-            kwargs['Environment'] = {"Variables": environment_variables}
+#         if environment_variables is not None:
+#             kwargs['Environment'] = {"Variables": environment_variables}
         if tags is not None:
             kwargs['Tags'] = tags
         if timeout is not None:
@@ -321,8 +321,8 @@ class TypedAWSClient(object):
                                 ):
         # type: (...) -> None
         kwargs = {}  # type: Dict[str, Any]
-        if environment_variables is not None:
-            kwargs['Environment'] = {'Variables': environment_variables}
+#         if environment_variables is not None:
+#             kwargs['Environment'] = {'Variables': environment_variables}
         if runtime is not None:
             kwargs['Runtime'] = runtime
         if timeout is not None:
