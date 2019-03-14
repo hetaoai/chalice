@@ -789,58 +789,59 @@ class PlanStage(object):
                             'rest_api_id': Variable('rest_api_id')},
                 )
             )
-        if not self._remote_state.resource_exists(resource):
-            plan = shared_plan_preamble + [
-                (models.APICall(
-                    method_name='import_rest_api',
-                    params={'swagger_document': resource.swagger_doc},
-                    output_var='rest_api_id',
-                ), "Creating Rest API\n"),
-                models.RecordResourceVariable(
-                    resource_type='rest_api',
-                    resource_name=resource.resource_name,
-                    name='rest_api_id',
-                    variable_name='rest_api_id',
-                ),
-                models.APICall(
-                    method_name='deploy_rest_api',
-                    params={'rest_api_id': Variable('rest_api_id'),
-                            'api_gateway_stage': resource.api_gateway_stage},
-                ),
-            ] + shared_plan_epilogue
-        else:
-            deployed = self._remote_state.resource_deployed_values(resource)
-            plan = shared_plan_preamble + [
-                models.StoreValue(
-                    name='rest_api_id',
-                    value=deployed['rest_api_id']),
-                models.RecordResourceVariable(
-                    resource_type='rest_api',
-                    resource_name=resource.resource_name,
-                    name='rest_api_id',
-                    variable_name='rest_api_id',
-                ),
-                (models.APICall(
-                    method_name='update_api_from_swagger',
-                    params={
-                        'rest_api_id': Variable('rest_api_id'),
-                        'swagger_document': resource.swagger_doc,
-                    },
-                ), "Updating rest API\n"),
-                models.APICall(
-                    method_name='deploy_rest_api',
-                    params={'rest_api_id': Variable('rest_api_id'),
-                            'api_gateway_stage': resource.api_gateway_stage},
-                ),
-                models.APICall(
-                    method_name='add_permission_for_apigateway',
-                    params={'function_name': function_name,
-                            'region_name': Variable('region_name'),
-                            'account_id': Variable('account_id'),
-                            'rest_api_id': Variable('rest_api_id')},
-                ),
-            ] + shared_plan_epilogue
-        return plan
+        return shared_plan_preamble
+#         if not self._remote_state.resource_exists(resource):
+#             plan = shared_plan_preamble + [
+#                 (models.APICall(
+#                     method_name='import_rest_api',
+#                     params={'swagger_document': resource.swagger_doc},
+#                     output_var='rest_api_id',
+#                 ), "Creating Rest API\n"),
+#                 models.RecordResourceVariable(
+#                     resource_type='rest_api',
+#                     resource_name=resource.resource_name,
+#                     name='rest_api_id',
+#                     variable_name='rest_api_id',
+#                 ),
+#                 models.APICall(
+#                     method_name='deploy_rest_api',
+#                     params={'rest_api_id': Variable('rest_api_id'),
+#                             'api_gateway_stage': resource.api_gateway_stage},
+#                 ),
+#             ] + shared_plan_epilogue
+#         else:
+#             deployed = self._remote_state.resource_deployed_values(resource)
+#             plan = shared_plan_preamble + [
+#                 models.StoreValue(
+#                     name='rest_api_id',
+#                     value=deployed['rest_api_id']),
+#                 models.RecordResourceVariable(
+#                     resource_type='rest_api',
+#                     resource_name=resource.resource_name,
+#                     name='rest_api_id',
+#                     variable_name='rest_api_id',
+#                 ),
+#                 (models.APICall(
+#                     method_name='update_api_from_swagger',
+#                     params={
+#                         'rest_api_id': Variable('rest_api_id'),
+#                         'swagger_document': resource.swagger_doc,
+#                     },
+#                 ), "Updating rest API\n"),
+#                 models.APICall(
+#                     method_name='deploy_rest_api',
+#                     params={'rest_api_id': Variable('rest_api_id'),
+#                             'api_gateway_stage': resource.api_gateway_stage},
+#                 ),
+#                 models.APICall(
+#                     method_name='add_permission_for_apigateway',
+#                     params={'function_name': function_name,
+#                             'region_name': Variable('region_name'),
+#                             'account_id': Variable('account_id'),
+#                             'rest_api_id': Variable('rest_api_id')},
+#                 ),
+#             ] + shared_plan_epilogue
+#         return plan
 
     def _get_role_arn(self, resource):
         # type: (models.IAMRole) -> Union[str, Variable]
