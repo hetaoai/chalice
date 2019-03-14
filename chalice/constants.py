@@ -76,7 +76,7 @@ CLOUDWATCH_LOGS = {
         "logs:CreateLogStream",
         "logs:PutLogEvents"
     ],
-    "Resource": "arn:aws:logs:*:*:*"
+    "Resource": "arn:aws-cn:logs:*:*:*"
 }
 
 
