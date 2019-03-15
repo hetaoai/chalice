@@ -612,7 +612,7 @@ class TestPlanSNSSubscription(BasePlannerTests):
             models.StoreValue(
                 name='function_name-sns-subscription_topic_arn',
                 value=StringFormat(
-                    "arn:aws:sns:{region_name}:{account_id}:mytopic",
+                    "arn:aws-cn:sns:{region_name}:{account_id}:mytopic",
                     variables=['region_name', 'account_id'],
                 )
             ),
@@ -662,7 +662,7 @@ class TestPlanSNSSubscription(BasePlannerTests):
 
     def test_can_plan_sns_arn_subscription(self):
         function = create_function_resource('function_name')
-        topic_arn = 'arn:aws:sns:mars-west-2:123456789:mytopic'
+        topic_arn = 'arn:aws-cn:sns:mars-west-2:123456789:mytopic'
         sns_subscription = models.SNSLambdaSubscription(
             resource_name='function_name-sns-subscription',
             topic=topic_arn,
@@ -749,7 +749,7 @@ class TestPlanSNSSubscription(BasePlannerTests):
             models.StoreValue(
                 name='function_name-sns-subscription_topic_arn',
                 value=StringFormat(
-                    "arn:aws:sns:{region_name}:{account_id}:mytopic",
+                    "arn:aws-cn:sns:{region_name}:{account_id}:mytopic",
                     variables=['region_name', 'account_id'],
                 )
             ),

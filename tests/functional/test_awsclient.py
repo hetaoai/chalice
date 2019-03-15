@@ -1631,19 +1631,19 @@ def test_add_permission_for_sns_publish(stubbed_session):
         FunctionName='function-arn',
         StatementId=stub.ANY,
         Principal='sns.amazonaws.com',
-        SourceArn='arn:aws:sns:::topic-arn',
+        SourceArn='arn:aws-cn:sns:::topic-arn',
     ).returns({})
 
     stubbed_session.activate_stubs()
     awsclient = TypedAWSClient(stubbed_session)
     awsclient.add_permission_for_sns_topic(
-        'arn:aws:sns:::topic-arn', 'function-arn')
+        'arn:aws-cn:sns:::topic-arn', 'function-arn')
     stubbed_session.verify_stubs()
 
 
 def test_subscribe_function_to_arn(stubbed_session):
     sns_client = stubbed_session.stub('sns')
-    topic_arn = 'arn:aws:sns:topic-arn'
+    topic_arn = 'arn:aws-cn:sns:topic-arn'
     sns_client.subscribe(
         TopicArn=topic_arn,
         Protocol='lambda',
@@ -1654,13 +1654,13 @@ def test_subscribe_function_to_arn(stubbed_session):
 
     awsclient = TypedAWSClient(stubbed_session)
     awsclient.subscribe_function_to_topic(
-        'arn:aws:sns:topic-arn', 'function-arn')
+        'arn:aws-cn:sns:topic-arn', 'function-arn')
     stubbed_session.verify_stubs()
 
 
 def test_can_unsubscribe_from_topic(stubbed_session):
     sns_client = stubbed_session.stub('sns')
-    subscription_arn = 'arn:aws:sns:subscribe-arn'
+    subscription_arn = 'arn:aws-cn:sns:subscribe-arn'
     sns_client.unsubscribe(
         SubscriptionArn=subscription_arn,
     ).returns({})
@@ -1673,15 +1673,15 @@ def test_can_unsubscribe_from_topic(stubbed_session):
 
 
 @pytest.mark.parametrize('topic_arn,function_arn,is_verified', [
-    ('arn:aws:sns:mytopic', 'arn:aws:lambda:myfunction', True),
-    ('arn:aws:sns:NEW-TOPIC', 'arn:aws:lambda:myfunction', False),
-    ('arn:aws:sns:mytopic', 'arn:aws:lambda:NEW-FUNCTION', False),
-    ('arn:aws:sns:NEW-TOPIC', 'arn:aws:lambda:NEW-FUNCTION', False),
+    ('arn:aws-cn:sns:mytopic', 'arn:aws:lambda:myfunction', True),
+    ('arn:aws-cn:sns:NEW-TOPIC', 'arn:aws:lambda:myfunction', False),
+    ('arn:aws-cn:sns:mytopic', 'arn:aws:lambda:NEW-FUNCTION', False),
+    ('arn:aws-cn:sns:NEW-TOPIC', 'arn:aws:lambda:NEW-FUNCTION', False),
 ])
 def test_subscription_exists(stubbed_session, topic_arn,
                              function_arn, is_verified):
     sns_client = stubbed_session.stub('sns')
-    subscription_arn = 'arn:aws:sns:subscribe-arn'
+    subscription_arn = 'arn:aws-cn:sns:subscribe-arn'
     sns_client.get_subscription_attributes(
         SubscriptionArn=subscription_arn,
     ).returns({
@@ -1710,7 +1710,7 @@ def test_subscription_exists(stubbed_session, topic_arn,
 
 def test_subscription_not_exists(stubbed_session):
     sns_client = stubbed_session.stub('sns')
-    subscription_arn = 'arn:aws:sns:subscribe-arn'
+    subscription_arn = 'arn:aws-cn:sns:subscribe-arn'
     sns_client.get_subscription_attributes(
         SubscriptionArn=subscription_arn,
     ).raises_error(error_code='NotFound', message='Does not exists.')

@@ -403,7 +403,7 @@ class TestSAMTemplate(object):
                 'Properties': {
                     'Topic': {
                         'Fn::Sub': (
-                            'arn:aws:sns:${AWS::Region}:${AWS::AccountId}:foo'
+                            'arn:aws-cn:sns:${AWS::Region}:${AWS::AccountId}:foo'
                         )
                     }
                 },
@@ -411,7 +411,7 @@ class TestSAMTemplate(object):
         }
 
     def test_can_package_sns_arn_handler(self, sample_app):
-        arn = 'arn:aws:sns:space-leo-1:1234567890:foo'
+        arn = 'arn:aws-cn:sns:space-leo-1:1234567890:foo'
 
         @sample_app.on_sns_message(topic=arn)
         def handler(event):

@@ -150,7 +150,7 @@ First, we'll create an SNS topic using boto3.
     >>> import boto3
     >>> sns = boto3.client('sns')
     >>> sns.create_topic(Name='my-demo-topic')
-    {'TopicArn': 'arn:aws:sns:us-west-2:12345:my-demo-topic',
+    {'TopicArn': 'arn:aws-cn:sns:us-west-2:12345:my-demo-topic',
      'ResponseMetadata': {}}
 
 Next, we'll create our chalice app::

@@ -441,7 +441,7 @@ class PlanStage(object):
         subscribe_varname = '%s_subscription_arn' % resource.resource_name
 
         instruction_for_topic_arn = []  # type: List[InstructionMsg]
-        if resource.topic.startswith('arn:aws:sns:'):
+        if resource.topic.startswith('arn:aws-cn:sns:'):
             instruction_for_topic_arn += [
                 models.StoreValue(
                     name=topic_arn_varname,
@@ -467,7 +467,7 @@ class PlanStage(object):
                 models.StoreValue(
                     name=topic_arn_varname,
                     value=StringFormat(
-                        'arn:aws:sns:{region_name}:{account_id}:%s' % (
+                        'arn:aws-cn:sns:{region_name}:{account_id}:%s' % (
                             resource.topic
                         ),
                         ['region_name', 'account_id'],

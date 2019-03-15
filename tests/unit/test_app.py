@@ -1547,7 +1547,7 @@ def test_can_map_sns_event(sample_app):
             'SigningCertUrl': 'https://sns.us-west-2.amazonaws.com/cert.pen',
             'Subject': 'ThisIsTheSubject',
             'Timestamp': '2018-06-26T19:41:38.695Z',
-            'TopicArn': 'arn:aws:sns:us-west-2:12345:ConsoleTestTopic',
+            'TopicArn': 'arn:aws-cn:sns:us-west-2:12345:ConsoleTestTopic',
             'Type': 'Notification',
             'UnsubscribeUrl': 'https://unsubscribe-url/'}}]}
     lambda_context = FakeLambdaContext()

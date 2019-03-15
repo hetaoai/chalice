@@ -290,12 +290,12 @@ class SAMTemplateGenerator(object):
         sns_cfn_name = self._register_cfn_resource_name(
             resource.resource_name)
 
-        if resource.topic.startswith('arn:aws:sns:'):
+        if resource.topic.startswith('arn:aws-cn:sns:'):
             topic_arn = resource.topic  # type: Union[str, Dict[str, str]]
         else:
             topic_arn = {
                 'Fn::Sub': (
-                    'arn:aws:sns:${AWS::Region}:${AWS::AccountId}:%s' %
+                    'arn-cn:aws:sns:${AWS::Region}:${AWS::AccountId}:%s' %
                     resource.topic
                 )
             }
